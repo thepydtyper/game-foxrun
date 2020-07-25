@@ -2,6 +2,13 @@ extends KinematicBody2D
 
 var knockback = Vector2.ZERO
 
+onready var stats = $Stats
+
+func _ready():
+	
+	print(stats.max_health)
+	print(stats.health)
+
 
 func _physics_process(delta):
 	
@@ -11,5 +18,9 @@ func _physics_process(delta):
 
 func _on_Hurtbox_area_entered(area):
 	
-	
+	stats.health -= area.damage # calls set_health under the hood
 	knockback = area.knockback_vector * 125
+
+
+func _on_Stats_no_health():
+	queue_free()
