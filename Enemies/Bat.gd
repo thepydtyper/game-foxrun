@@ -11,6 +11,7 @@ var velocity = Vector2.ZERO
 onready var sprite = $AnimatedSprite
 onready var stats = $Stats
 onready var playerdetectionzone = $PlayerDetectionZone
+onready var hurtbox = $Hurtbox
 
 export var ACCELERATION = 300
 export var MAX_SPEED = 50
@@ -54,6 +55,7 @@ func _on_Hurtbox_area_entered(area):
 	
 	stats.health -= area.damage # calls set_health under the hood
 	knockback = area.knockback_vector * 125
+	hurtbox.create_hit_effect()
 
 
 func _on_Stats_no_health():
