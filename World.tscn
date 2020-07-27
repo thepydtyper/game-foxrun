@@ -508,7 +508,7 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 position = Vector2( 160, 90 )
 texture = ExtResource( 3 )
 region_enabled = true
-region_rect = Rect2( 0, 0, 320, 180 )
+region_rect = Rect2( 0, 0, 860.716, 501.611 )
 
 [node name="DirtPathTileMap" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -523,16 +523,18 @@ collision_mask = 2147483648
 format = 1
 tile_data = PoolIntArray( -1, 0, 65537, -65536, 0, 65538, -65535, 0, 65538, -65534, 0, 65538, -65533, 0, 65539, -65531, 0, 65537, -65530, 0, 65538, -65529, 0, 65538, -65528, 0, 65538, -65527, 0, 65538, -65526, 0, 65539, 65535, 0, 131073, 0, 0, 131074, 1, 0, 131078, 2, 0, 196610, 3, 0, 196611, 5, 0, 196609, 6, 0, 196610, 7, 0, 196610, 8, 0, 196610, 9, 0, 131079, 10, 0, 131075, 131071, 0, 131073, 65536, 0, 131078, 65537, 0, 196611, 65545, 0, 131073, 65546, 0, 131075, 196607, 0, 196609, 131072, 0, 196611, 131081, 0, 131073, 131082, 0, 131075, 196617, 0, 131073, 196618, 0, 131075, 327679, 0, 65537, 262144, 0, 65539, 262153, 0, 131073, 262154, 0, 131075, 393215, 0, 131073, 327680, 0, 196614, 327681, 0, 65538, 327682, 0, 65538, 327683, 0, 65538, 327684, 0, 65538, 327685, 0, 65538, 327686, 0, 65538, 327687, 0, 65539, 327689, 0, 131073, 327690, 0, 131075, 458751, 0, 196609, 393216, 0, 196610, 393217, 0, 196610, 393218, 0, 196610, 393219, 0, 196610, 393220, 0, 196610, 393221, 0, 196610, 393222, 0, 196610, 393223, 0, 196611, 393225, 0, 196609, 393226, 0, 196611 )
 
-[node name="HealthUI" parent="." instance=ExtResource( 8 )]
-margin_left = 4.40973
-margin_top = 5.35467
-margin_right = 44.4097
-margin_bottom = 45.3547
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 84.7445, 45.0995 )
+current = true
+smoothing_enabled = true
 
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Player" parent="YSort" instance=ExtResource( 1 )]
 position = Vector2( 84.7445, 45.0995 )
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="YSort/Player"]
+remote_path = NodePath("../../../Camera2D")
 
 [node name="Bushes" type="YSort" parent="YSort"]
 
@@ -578,3 +580,11 @@ position = Vector2( 187.413, 139.851 )
 
 [node name="Bat2" parent="YSort" instance=ExtResource( 7 )]
 position = Vector2( 47.247, 113.708 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthUI" parent="CanvasLayer" instance=ExtResource( 8 )]
+margin_left = 4.40973
+margin_top = 5.35467
+margin_right = 44.4097
+margin_bottom = 45.3547
