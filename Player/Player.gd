@@ -4,6 +4,7 @@ const ACCELERATION = 500
 const MAX_SPEED = 80
 const ROLL_SPEED = 120
 const FRICTION = 500
+const PlayerHurtSound = preload("res://Player/PlayerHurtSound.tscn")
 
 enum {MOVE, ROLL, ATTACK}
 
@@ -17,6 +18,7 @@ onready var animationTree = $AnimationTree
 onready var animationState = animationTree.get("parameters/playback")
 onready var swordHitbox = $HitboxPivot/SwordHitbox
 onready var hurtbox = $Hurtbox
+onready var blinkAnimationPlayer = $BlinkAnimationPlayer
 
 
 func _ready():
@@ -92,10 +94,20 @@ func roll_animation_finished():
 	
 func attack_animation_finish():	
 	state = MOVE
-	
 
 
 func _on_Hurtbox_area_entered(area):
-	stats.health -= 1
-	hurtbox.start_invincibility(0.5)
+	
+	stats.health -= area.damage
+	hurtbox.start_invincibility(0.6)
 	hurtbox.create_hit_effect()
+	var playerHurtSound = PlayerHurtSound.instance()
+	get_tree().current_scene.add_child(playerHurtSound)
+
+
+func _on_Hurtbox_invincibility_started():
+	blinkAnimationPlayer.play("Start")
+
+
+func _on_Hurtbox_invincibility_ended():
+	blinkAnimationPlayer.play("Stop")
